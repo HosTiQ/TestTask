@@ -1,0 +1,43 @@
+# Need ansible.posix
+
+- hosts: VM1
+  remote_user: root
+  tasks:
+  - name: Download jenkins.repo
+    ansible.builtin.get_url:
+     url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+     dest: /etc/yum.repos.d/jenkins.repo
+  - name: Import key
+    ansible.builtin.rpm_key:
+     state: present
+     key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+  - name: upgrade all
+    ansible.builtin.yum:
+     name: '*'
+     state: latest
+  - name: Install java and jenkins
+    ansible.builtin.yum:
+     name:
+     - java-11-openjdk
+     - jenkins
+     state: latest
+  - name: Firewall rule for jenkins
+    ansible.posix.firewalld:
+     port: 8080/tcp
+     permanent: yes
+     state: enabled
+  - name: reload service firewalld
+    ansible.builtin.systemd:
+     name: firewalld
+     state: reloaded
+  - name: Start jenkins
+    ansible.builtin.systemd:
+     daemon_reload: yes
+     state: started
+     name: jenkins
+  - name: Display resolv.conf contents
+    ansible.builtin.command: cat /var/lib/jenkins/secrets/initialAdminPassword
+    register: admin_key
+  - name: Print admin_key
+    ansible.builtin.debug:
+     msg: "{{admin_key.stdout}}"

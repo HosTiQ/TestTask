@@ -1,0 +1,92 @@
+Running as SYSTEM
+Building remotely on agent1 (linux) in workspace /home/jenkins/agent/workspace/Job
+[Job] $ /bin/sh -xe /tmp/jenkins8547462688176747900.sh
++ sudo yum -y install epel-release
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.sale-dedic.com
+ * extras: mirror.sale-dedic.com
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch             Version         Repository        Size
+================================================================================
+Installing:
+ epel-release           noarch           7-11            extras            15 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                    
+
+Complete!
++ sudo yum -y install htop tmux jq
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.sale-dedic.com
+ * epel: mirror.logol.ru
+ * extras: mirror.sale-dedic.com
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package htop.x86_64 0:2.2.0-3.el7 will be installed
+---> Package jq.x86_64 0:1.6-2.el7 will be installed
+---> Package tmux.x86_64 0:1.8-4.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package         Arch              Version                Repository       Size
+================================================================================
+Installing:
+ htop            x86_64            2.2.0-3.el7            epel            103 k
+ jq              x86_64            1.6-2.el7              epel            167 k
+ tmux            x86_64            1.8-4.el7              base            243 k
+
+Transaction Summary
+================================================================================
+Install  3 Packages
+
+Total download size: 513 k
+Installed size: 1.1 M
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              764 kB/s | 513 kB  00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : jq-1.6-2.el7.x86_64                                          1/3 
+  Installing : htop-2.2.0-3.el7.x86_64                                      2/3 
+  Installing : tmux-1.8-4.el7.x86_64                                        3/3 
+  Verifying  : tmux-1.8-4.el7.x86_64                                        1/3 
+  Verifying  : htop-2.2.0-3.el7.x86_64                                      2/3 
+  Verifying  : jq-1.6-2.el7.x86_64                                          3/3 
+
+Installed:
+  htop.x86_64 0:2.2.0-3.el7   jq.x86_64 0:1.6-2.el7   tmux.x86_64 0:1.8-4.el7  
+
+Complete!
++ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.back
++ sudo sed -i 's/#PermitRootLogin.*/PermitRootLogin no/; s/PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
++ sudo systemctl restart sshd.service
+Finished: SUCCESS
